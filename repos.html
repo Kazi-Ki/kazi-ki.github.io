@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GitHubリポジトリ一覧 - KaziKi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <input type="checkbox" id="sidebar-toggle" />
+  <label for="sidebar-toggle" class="sidebar-toggle-label">
+    &#9776;
+  </label>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>製作者情報</h2>
+      <button id="darkModeToggle">ダークモード切替</button>
+    </div>
+    <div class="sidebar-content">
+      <p>KaziKi-github</p>
+      <p><a href="https://github.com/Kazi-Ki" target="_blank" rel="noopener">GitHub</a></p>
+      <p><a href="index.html">トップページ</a></p>
+    </div>
+  </aside>
+
+  <main class="main-content" id="repo-list">
+    <p>読み込み中…</p>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    async function fetchRepos() {
+      const container = document.getElementById("repo-list");
+      try {
+        const res = await fetch("https://api.github.com/users/Kazi-Ki/repos");
+        if (!res.ok) throw new Error("API取得失敗");
+        const repos = await res.json();
+
+        container.innerHTML = "";
+
+        repos.forEach(repo => {
+          const card = document.createElement("div");
+          card.className = "card";
+
+          const title = document.createElement("h3");
+          title.textContent = repo.name;
+          card.appendChild(title);
+
+          const links = document.createElement("p");
+
+          const githubLink = document.createElement("a");
+          githubLink.href = repo.html_url;
+          githubLink.target = "_blank";
+          githubLink.rel = "noopener";
+          githubLink.textContent = "GitHub";
+
+          links.appendChild(githubLink);
+
+          // GitHub Pages URLは通常 https://ユーザ名.github.io/リポジトリ名/
+          // ただし repo.name === username.github.io の場合はトップページなのでURLは https://ユーザ名.github.io/
+          const username = "Kazi-Ki";
+          let pagesUrl = `https://${username}.github.io/${repo.name}/`;
+          if (repo.name.toLowerCase() === `${username.toLowerCase()}.github.io`) {
+            pagesUrl = `https://${username}.github.io/`;
+          }
+
+          // GitHub Pagesページが存在するかはAPIでわからないので一応表示のみ
+          const pagesLink = document.createElement("a");
+          pagesLink.href = pagesUrl;
+          pagesLink.target = "_blank";
+          pagesLink.rel = "noopener";
+          pagesLink.textContent = "GitHub Pages";
+          pagesLink.style.marginLeft = "10px";
+
+          links.appendChild(pagesLink);
+
+          card.appendChild(links);
+
+          container.appendChild(card);
+        });
+      } catch (e) {
+        container.innerHTML = `<p>取得に失敗しました: ${e.message}</p>`;
+      }
+    }
+    fetchRepos();
+  </script>
+</body>
+</html>
