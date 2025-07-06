@@ -3,67 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> トップページ-KK-Z </title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <title>進捗掲示板 - KaziKi</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <input type="checkbox" id="sidebar-toggle" />
+  <label for="sidebar-toggle" class="sidebar-toggle-label">
+    &#9776;
+  </label>
 
-  <header>
-    <div>KaziKiの掲示板</div>
-    <div class="menu-icon" id="openModalBtn">≡</div>
-  </header>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>製作者情報</h2>
+      <button id="darkModeToggle">ダークモード切替</button>
+    </div>
+    <div class="sidebar-content">
+      <p>KaziKi-github</p>
+      <p><a href="https://github.com/Kazi-Ki" target="_blank" rel="noopener">GitHub</a></p>
+      <p><a href="https://kazi-ki.github.io/repos.html">リポジトリ一覧ページ</a></p>
+    </div>
+  </aside>
 
-  <div class="search-bar">
-    このページは開発中です…
-  </div>
-
-  <main>
-    <div class="content-wrapper">
-      <div class="card">
-        <p>もう少ししたら色々な進捗や成果をここに投稿していきます！</p>
-      </div>
-
-      <div class="card">
-        <h3>進捗報告①</h3>
-        <small>2025-07-06</small>
-        <p>新しい掲示板UIのデザインを作りました。シンプルで使いやすい感じです。</p>
-      </div>
+  <main class="main-content">
+    <div class="card">
+      <h3>進捗 2025-07-06</h3>
+      <p>新しい掲示板UIを作成中。<br>ダークモード対応とレスポンシブ対応も実装。</p>
+    </div>
+    <div class="card">
+      <h3>進捗 2025-07-05</h3>
+      <p>サイドバーの開閉機能を完成。<br>製作者情報も追加。</p>
+    </div>
+    <div class="card">
+      <h3>進捗 2025-07-04</h3>
+      <p>ページレイアウトのベースを作成。<br>Google風UIを意識した配色。</p>
     </div>
   </main>
-
-  <!-- モーダルオーバーレイ -->
-  <div class="modal-overlay" id="modalOverlay"></div>
-
-  <!-- モーダル本体 -->
-  <div class="modal" id="modal">
-    <button class="close-btn" id="closeModalBtn">×</button>
-
-    <section>
-      <h2>サイトURL</h2>
-      <div class="url-box">https://kazi-ki.github.io</div>
-      <a href="https://kazi-ki.github.io" target="_blank" class="link-button">サイトを開く</a>
-    </section>
-
-    <section>
-      <h2>作者情報</h2>
-      <div class="info-box">KaziKi / GitHubプロフィール</div>
-      <a href="https://github.com/Kazi-Ki" target="_blank" class="link-button">GitHubを見る</a>
-    </section>
-
-    <section>
-      <h2>ツール一覧</h2>
-      <div class="info-box">自作ツールへのリンク集</div>
-      <a href="https://kazi-ki.github.io/fake-login/" target="_blank" class="link-button">フィッシング体験</a>
-      <a href="https://kazi-ki.github.io/mc-bot/" target="_blank" class="link-button">マイクラBOT</a>
-      <a href="https://kazi-ki.github.io/tools/" target="_blank" class="link-button">便利ツール集</a>
-    </section>
-
-    <section>
-      <h2>その他</h2>
-      <div class="info-box">このサイトは現在開発中です！更新をお楽しみに！</div>
-    </section>
-  </div>
 
   <script src="script.js"></script>
 </body>
