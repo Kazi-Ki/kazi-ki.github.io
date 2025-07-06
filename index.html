@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title> トップページ-Kaziki </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> トップページ-KK-Z</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -10,20 +11,23 @@
       background: #f8f9fa;
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
       color: #202124;
     }
+
     header {
       background: white;
       padding: 12px 24px;
       box-shadow: 0 1px 3px rgba(60,64,67,.3);
-      font-size: 20px;
-      font-weight: 500;
-      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    /* 検索バー風のエリア */
+
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
     .search-bar {
       background: white;
       margin: 16px auto;
@@ -38,43 +42,188 @@
       font-size: 16px;
       color: #5f6368;
     }
+
     main {
-      flex: 1;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 0 0 40px;
-      color: #5f6368;
+      padding-bottom: 40px;
     }
+
     .content-wrapper {
       max-width: 600px;
       width: 90%;
     }
+
     .card {
       background: white;
       padding: 24px 32px;
       box-shadow: 0 1px 2px rgba(60,64,67,.15);
       border-radius: 8px;
       margin-bottom: 16px;
-      color: #202124;
     }
-    .card h3 {
-      margin-top: 0;
-      color: #202124;
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 999;
     }
-    .card small {
-      color: #5f6368;
+
+    .modal-overlay.active {
+      display: block;
     }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      background: #fff;
+      width: 320px;
+      max-width: 90%;
+      padding: 20px;
+      box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .modal h2 {
+      font-size: 18px;
+      color: #1a73e8;
+    }
+
+    .url-box, .info-box {
+      background: #f1f3f4;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin: 8px 0;
+      word-break: break-word;
+    }
+
+    .modal section {
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #888;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+    }
+
+    .modal a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    @media screen and (max-width: 600px) {
+      .card {
+        padding: 16px 20px;
+      }
+
+      .modal {
+        width: 100%;
+        border-radius: 0;
+      }
+
+      .modal section h2 {
+        font-size: 16px;
+      }
+
+      .search-bar {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+    }
+    .link-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 6px 0;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.link-button:hover {
+  background-color: #185abc;
+}
+
+@media (prefers-color-scheme: dark) {
+  .link-button {
+    background-color: #8ab4f8;
+    color: #202124;
+  }
+
+  .link-button:hover {
+    background-color: #669df6;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #202124;
+    color: #e8eaed;
+  }
+
+  header, .search-bar, .card, .modal {
+    background: #303134;
+    color: #e8eaed;
+  }
+
+  .search-bar {
+    border-color: #5f6368;
+    box-shadow: 0 1px 6px rgb(0 0 0 / 60%);
+  }
+
+  .card {
+    box-shadow: 0 1px 2px rgba(255,255,255,0.1);
+  }
+
+  .modal {
+    box-shadow: -3px 0 10px rgba(255,255,255,0.2);
+  }
+
+  .url-box, .info-box {
+    background: #3c4043;
+    color: #e8eaed;
+    border: 1px solid #5f6368;
+  }
+
+  .modal a {
+    color: #8ab4f8;
+  }
+
+  .close-btn {
+    color: #aaa;
+  }
+}
+
   </style>
 </head>
 <body>
+
   <header>
-    KaziKiの掲示板
+    <div>KaziKiの掲示板</div>
+    <div class="menu-icon" onclick="openModal()">≡</div>
   </header>
-  <!-- ここが検索バー風の一言エリア -->
+
   <div class="search-bar">
     このページは開発中です…
   </div>
+
   <main>
     <div class="content-wrapper">
       <div class="card">
@@ -83,12 +232,55 @@
 
       <div class="card">
         <h3>進捗報告</h3>
-        <small>000000</small>
-        <p> 本ページを作成。</p>
+        <small>newer</small>
+        <p>新しい掲示板UIのデザインを作りました。シンプルで使いやすい感じです。</p>
       </div>
-
-      
     </div>
   </main>
+
+  <!-- モーダルオーバーレイ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+
+  <!-- モーダル本体 -->
+  <div class="modal" id="modal">
+    <button class="close-btn" onclick="closeModal()">×</button>
+
+    <section>
+      <h2>サイトURL</h2>
+      <div class="url-box">https://kazi-ki.github.io</div>
+      <a href="https://kazi-ki.github.io" target="_blank" class="link-button">サイトを開く</a>
+　　　</section>
+    
+    <section>
+      <h2>作者情報</h2>
+      <div class="info-box">KaziKi / GitHubプロフィール</div>
+      <a href="https://github.com/Kazi-Ki" target="_blank" class="link-button">GitHubを見る</a>
+    </section>
+
+    <section>
+      <h2>ツール一覧</h2>
+      <div class="info-box">自作ツールへのリンク集</div>
+      <a href="#" class="link-button">sumple</a>
+      <a href="#" class="link-button">sumple</a>
+    </section>
+
+    <section>
+      <h2>その他</h2>
+      <div class="info-box">このサイトは現在開発中です！更新をお楽しみに！</div>
+    </section>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+      document.getElementById('modal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
