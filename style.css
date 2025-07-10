@@ -123,6 +123,35 @@ body.dark {
   line-height: 1.4;
 }
 
+#darkModeToggle {
+  background-color: #f1f3f4; /* Googleのグレー */
+  color: #202124;
+  font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#darkModeToggle:hover {
+  background-color: #e8eaed;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+#darkModeToggle:active {
+  background-color: #dadce0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+}
+
+#darkModeToggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.3); /* 青系フォーカスリング */
+}
+
+
 /* スマホ対応 */
 
 @media (max-width: 768px) {
